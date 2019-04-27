@@ -1,26 +1,32 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { HashRouter, Route } from 'react-router-dom';
+import axios from 'axios';
+import Header from './components/Header';
+import Home from './containers/Home';
+import Login from './containers/Login';
+import Logout from './containers/Logout';
+import Signup from './containers/Signup';
+import Dashboard from './containers/Dashboard';
+
 
 class App extends Component {
+
+  // getLoggedinUser = () => {
+  //   axios.get()
+  // }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <HashRouter>
+          <Header/>
+          <div className="main-container">
+          <Route path="/" exact component={Home}/>
+          <Route path="/signup" exact component={Signup} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/logout" exact component={Logout} />
+          <Route path="/dashboard" exact component={Dashboard}/>
+        </div>
+      </HashRouter>
     );
   }
 }

@@ -1,0 +1,17 @@
+
+.navbar-main-container {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    margin: 20px;
+    padding: 10px;
+}
+
+.navbar-nested-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.navbar-nested-container > li {
+    margin: 20px;
+}

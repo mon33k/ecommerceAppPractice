@@ -2,7 +2,7 @@ import React from 'react';
 import firebase from '../firebase';
 import LoginError from './LoginError';
 import Header from '../components/Header';
-import Dashboard from '../containers/Dashboard';
+import Profile from '../containers/Profile';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
@@ -37,9 +37,7 @@ class Login extends React.Component {
                     email: res.user.email,
                     uid: res.user.uid,
                 }
-                this.setState({
-                    user: currentUserInfo
-                })
+                this.props.setCurrentUser(currentUserInfo)
                 return res
             })
         // Was trying to use something to validate a user that is logged in
@@ -82,16 +80,16 @@ class Login extends React.Component {
     getFirebaseToken = () => {
         firebase.auth().currentUser.getIdToken(false)
             .then((token) => {
-                return localStorage.setItem('auth_token', JSON.stringify(token))
+                return localStorage.setItem('auth_token', token)
             })
     }
 
     render() {
         const { email, password, message, displayName, user } = this.state
 
-        if (user.email) {
-            return (<Dashboard user={user} />)
-        } else {
+        // if (user.email) {
+        //     return (<Profile user={user} />)
+        // } else {
             return (
                 <div>
                     <h1>Log In</h1>
@@ -111,7 +109,7 @@ class Login extends React.Component {
                     {message ? <div>{message}</div> : ""}
                 </div>
             )
-        }
+        // }
     }
 }
 

@@ -16,9 +16,8 @@ userService.getUserByFirebase_uid = (firebase_uid) => {
 // POST a new user signing up 
 userService.addSignUpNewUser = (username, fullname, email, firebase_uid) => {
     const sql = `INSERT INTO users (username, fullname, email, firebase_uid) 
-    VALUES ($1, $2, $3) RETURNING users.username, users.fullname, users.email, users.firebase_uid`
-    [req.body.username, hash, req.body.email]
-    return db.none(sql, {username, fullname, email, firebase_uid})
+    VALUES ($[username], $[fullname], $[email], $[firebase_uid]) RETURNING users.username, users.fullname, users.email, users.firebase_uid`
+    return db.any(sql, {username, fullname, email, firebase_uid})
 }
 
 // This is when I wanted to add the auth_token in the backend but now I'm gonna just add the uid

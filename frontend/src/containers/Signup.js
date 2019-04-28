@@ -1,6 +1,6 @@
 import React from 'react';
 import firebase from '../firebase'
-import Dashboard from './Dashboard'
+import Profile from './Profile'
 import axios from 'axios';
 
 
@@ -27,7 +27,7 @@ class Signup extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault()
         const { email, password, displayName, fullname } = this.state
-
+        // This request validates the user via firebase
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then((res) => {
                 // console.log('response', res, res.user.email, res.user.uid, displayName)
@@ -38,20 +38,24 @@ class Signup extends React.Component {
                         uid: res.user.uid,
                     }
                 })
+                this.props.setCurrentUser(this.state.user)
+
                 return res
             })
-
-            //if display name is the same as same as logged in user -- idk
-            // The user when logging in needs to have their full name the same as the hardcoded data in ecommercetables.sql 
+            // This request POSTS the new user to the user table
             .then((res) => {
-                axios.post("/users/addnewuser", {
+                axios.post('/users/addnewuser', {
                     username: displayName,
                     fullname: fullname, 
                     email: res.user.email,
                     firebase_uid: res.user.uid
                 })
                 .then((res) => {
-                    console.log('res success post request! ', res)
+                    console.log('res success post request! ', res.data)
+
+                    // let currentUser = res.data[0]
+                    // this.props.setCurrentUser(currentUser)
+                    //This gave me a memory leak error and I don't know why 
                     // this.setState({
                     //     message: "user logged in success"
                     // })
@@ -116,9 +120,9 @@ class Signup extends React.Component {
     render() {
         const { email, password, message, displayName, user, fullname } = this.state
 
-        if (user.email) {
-            return (<Dashboard user={user} />)
-        } else {
+        // if (user.email) {
+        //     return (<Profile user={user} />)
+        // } else {
             return (
                 <div>
                     <h1>Sign Up</h1>
@@ -141,7 +145,7 @@ class Signup extends React.Component {
                     {message ? <div>{message}</div> : ""}
                 </div>
             )
-        }
+        // }
     }
 }
 

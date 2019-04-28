@@ -23,32 +23,32 @@ userRouter.post('/addnewuser', (req, res) => {
   const { username, fullname, email, firebase_uid } = req.body
 
   userService.addSignUpNewUser(username, fullname, email, firebase_uid)
-  .then(() => {
-    res.json({message: "New User POSTED Successfully"})
+  .then((data) => {
+    res.status(200).json({data})
   })
   .catch((err) => {
     res.status(404).json({ error: err.toString() })
   })
 })
 
-// 
-userRouter.put('/auth/:username', (req, res) => {
-  const { username } = req.params
-  const { auth_token } = req.body
+// This is replacing a single user's token with a new token 
+// userRouter.put('/auth/:username', (req, res) => {
+//   const { username } = req.params
+//   const { auth_token } = req.body
 
-  userService.addFBAuthToken(auth_token, username)
-    .then(data => {
-      console.log('success!')
-      res.json(data)
-    })
-    .catch((err) => {
-      console.log(err)
-      res.status(404).json({ error: err.toString() })
-    })
-})
+//   userService.addFBAuthToken(auth_token, username)
+//     .then(data => {
+//       console.log('success!')
+//       res.json(data)
+//     })
+//     .catch((err) => {
+//       console.log(err)
+//       res.status(404).json({ error: err.toString() })
+//     })
+// })
 
 userRouter.get('/protected', (req, res) => {
-  const { auth_token } = req.body
+  // const { auth_token } = req.body
   const token = ''
 
   // Got rid of this function because I don't want to save the auth token in the backend anymore

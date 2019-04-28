@@ -5,7 +5,7 @@ import Header from '../components/Header';
 
 //Here you have access to the current token of the user, at this point you can decrypt it from the backend or you can just save the uid. For the function to decrypt the user token you can validate the current user by decrypting the token on any component. To distinguish between a logged in user and other users. 
 
-class Dashboard extends React.Component {
+class Profile extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -16,7 +16,7 @@ class Dashboard extends React.Component {
     passUserToHeader = () => {
         // console.log('this.props.user', this.props.user)
         const { user } = this.props
-        console.log('user', user)
+        console.log('user in Profile ', user)
         return (
             <Header user={user} />
         )
@@ -44,14 +44,14 @@ class Dashboard extends React.Component {
 
     render() {
         // console.log('localStorage', localStorage)
-        // console.log('currentUser in dashboard', this.props.user)
+        // console.log('currentUser in Profile', this.props.user)
         return (
             <div>
-                DASHBOARD PAGE
+                Profile PAGE
             </div>
         )
     }
 }
 
 
-export default Dashboard
+export default Profile

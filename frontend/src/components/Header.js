@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import '../stylesheets/header.css'
 
-const Header = (props) => {
+const Header = () => {
         // console.log('localStorage', localStorage.auth_token)
-    console.log('currentUser in header', props.user)
+    // console.log('currentUser in header', props.user)
         // if (user) {
         //     return (
         //         <div className="navbar-main-container">

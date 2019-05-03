@@ -16,9 +16,20 @@ const userService = require('../services/users')
 //     })
 // })
 
-// GET a logged in User 
+// GET a logged in User in LOGIN component
+userRouter.get('/login', (req, res) => {
+  const { firebase_uid } = req.query
 
-// POST new user to user table on SIGN UP component
+  userService.getUserByFirebase_uid(firebase_uid)
+    .then(data => {
+      res.json(data)
+    })
+    .catch((err) => {
+      res.status(404).json({error: err.toString()})
+    })
+})
+
+// POST new user to user table on SIGNUP component
 userRouter.post('/addnewuser', (req, res) => {
   const { username, fullname, email, firebase_uid } = req.body
 
@@ -27,7 +38,7 @@ userRouter.post('/addnewuser', (req, res) => {
     res.status(200).json({data})
   })
   .catch((err) => {
-    res.status(404).json({ error: err.toString() })
+    res.status(404).json({error: err.toString()})
   })
 })
 

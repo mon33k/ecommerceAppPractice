@@ -37,23 +37,25 @@ class Login extends React.Component {
                     email: res.user.email,
                     uid: res.user.uid,
                 }
-                this.props.setCurrentUser(currentUserInfo)
                 return res
             })
         // Was trying to use something to validate a user that is logged in
-        // .then((res) => {
-        //     axios.get("/users/login", {
-        //         username: displayName,
-        //         email: res.user.email,
-        //         firebase_uid: res.user.uid,
-        //     })
-        //     .then((res) => {
-        //         console.log('User posted in db success ', res.user)
-        //     })
-        //     .catch(err => {
-        //         console.log('error in post req ', err)
-        //     })
-        // })
+        .then((res) => {
+            // console.log('res ', res.user.uid.toString())
+            axios.get('/users/login', {
+                params: {
+                    firebase_uid: res.user.uid
+                }
+            })
+            .then((res) => {
+                console.log('User logged in success! ', res.data[0].username)
+                this.props.setCurrentUser(res.data[0])
+
+            })
+            .catch(err => {
+                console.log('error in post req ', err)
+            })
+        })
             .catch(err => {
                 this.setState({
                     message: err.message
@@ -85,11 +87,8 @@ class Login extends React.Component {
     }
 
     render() {
-        const { email, password, message, displayName, user } = this.state
+        const { email, password, message, displayName} = this.state
 
-        // if (user.email) {
-        //     return (<Profile user={user} />)
-        // } else {
             return (
                 <div>
                     <h1>Log In</h1>
@@ -109,15 +108,7 @@ class Login extends React.Component {
                     {message ? <div>{message}</div> : ""}
                 </div>
             )
-        // }
     }
 }
 
 export default Login;
-
-
-// return (currentUser ? (<Redirect to={{
-//     pathname: "/dashboard",
-//     state: { currentUser: [currentUser.user_email] }
-// }}
-// />) : '')

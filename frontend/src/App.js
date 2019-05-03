@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { HashRouter, Route, Redirect } from 'react-router-dom';
+import {  Route, Redirect } from 'react-router-dom';
 import axios from 'axios';
 
-import Header from './components/Header';
+// import Header from './components/Header';
 import Home from './containers/Home';
 import Login from './containers/Login';
 import Logout from './containers/Logout';
 import Signup from './containers/Signup';
-import Profile from './containers/Profile';
-import firebase from '../src/firebase'
+import DataRouter from './components/DataRouter';
+// import Profile from './containers/Profile';
+import firebase from '../src/firebase';
 
 class App extends Component {
   constructor() {
@@ -53,16 +54,17 @@ class App extends Component {
 
   render() {
     return (
-      <HashRouter>
-          <Header/>
+      <>
+          {/* <Header/> */}
           <div className="main-container">
           <Route path="/home" exact component={Home}/>
           <Route path="/signup" exact component={this.handleRegisterUser} />
           <Route path="/login" exact component={this.handleLoginUser} />
           <Route path="/logout" exact component={Logout} />
-          <Route path="/profile" exact component={Profile}/>
+          <Route path="/" exact component={DataRouter} />
+          {/* <Route path="/profile/:username" exact component={Profile}/> */}
         </div>
-      </HashRouter>
+    </>
     );
   }
 }

@@ -1,13 +1,13 @@
 const db = require("./dbConnect.js")
 const userService = {}
 
-// Get user by username
+// GET user by username
 userService.getUserByUsername = (username) => {
     const sql = `SELECT * FROM users WHERE username=$[username]`
     return db.one(sql, { username })
 }
 
-// get a logged in user by firebase_uid
+// GET a logged in user by firebase_uid
 userService.getUserByFirebase_uid = (firebase_uid) => {
     const sql = `SELECT * FROM users WHERE firebase_uid=$[firebase_uid]`
     return db.any(sql, {firebase_uid})

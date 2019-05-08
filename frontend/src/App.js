@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {  Route, Redirect } from 'react-router-dom';
 import axios from 'axios';
 
-// import Header from './components/Header';
+import Header from './components/Header';
 import Home from './containers/Home';
 import Login from './containers/Login';
 import Logout from './containers/Logout';
@@ -53,9 +53,11 @@ class App extends Component {
   }
 
   render() {
+    const {user} = this.state
+    console.log('user', user)
     return (
       <>
-          {/* <Header/> */}
+          <Header currentUser={user}/>
           <div className="main-container">
           <Route path="/home" exact component={Home}/>
           <Route path="/signup" exact component={this.handleRegisterUser} />
